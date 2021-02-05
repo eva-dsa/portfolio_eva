@@ -8,9 +8,9 @@ a {
   color: #7f7f7f;
 }
 
-a:hover {
+/*a:hover {
   color: #00cfff;
-}
+}*/
 
 section{
 	padding-top: 3rem;
@@ -22,7 +22,7 @@ section{
 }
 
 .section-2 {
-	background-color: #e2e2e2;
+	background-color: #EFEFEF;
 }
 
 .section-3 {
@@ -42,6 +42,7 @@ a.nav-item:hover {
 	color: #00cfff;
 }
 
+
 .avatar{
 	height:200px;
 	border-radius: 50%;
@@ -56,12 +57,21 @@ a.nav-item:hover {
 	max-height:175px;
 	margin-bottom:15px;
 }
+p.contact{
+	margin : 20px;
+}
+
+.social_icon {
+	width: 10%;
+}
 
 .project-figure {
 	margin: 0 auto 1rem auto;
 	max-height: 256px;
 	max-width: 256px;
+	border:1px solid #aaaaaa;
 }
+
 
 .project-text {
 	text-align: justify;
@@ -74,7 +84,9 @@ a.nav-item:hover {
 
 	/*border: 2px solid rgba(7, 59, 79, 0.5);*/
 }
-
+.box:hover {
+		border: 3px solid #ffffff;
+}
 .title {
 	color: #525252;
 	text-align: left;
@@ -93,7 +105,7 @@ a.nav-item:hover {
 
 @media screen and (max-width: 768px) {
 	.nav-menu {
-		background-color: white;
+		background-color:transparent;
 	}
 	.nav-toggle:hover {
 		background-color: transparent;
@@ -105,37 +117,11 @@ a.nav-item:hover {
 		background-color: #00cfff;
 	}
 }
+/*Nav bar sticky*/
+.nav {
+	background-color: rgb(255, 255, 255);
+	position:fixed; /* Set the navbar to fixed position */
+	top: 0; /* Position the navbar at the top of the page */
+	width:100%; /* Full width */
+}
 
-
-/*Contact box
-input[type=text],[type=email], select, textarea {
-	width: 100%;
-	padding: 12px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: 50%;
-	margin-top: 6px;
-	margin-bottom: 16px;
-	resize: vertical;
-  }
-  
-  input[type=submit] {
-	background-color:#00cfff;
-	color: white;
-	padding: 12px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-	background-color: #00cfff;
-  }
-  
-  .container_contact {
-	border-radius: 5px;
-	background-color: #f2f2f2;
-	padding: 20px;
-	text-align: left;
-	text-align-last: left;
-  }*/
