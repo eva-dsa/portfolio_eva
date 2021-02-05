@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Portfolio</title>
+	
+	<!-- css files -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
+	<link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+	<meta name="author" content="Eva Ambrosini">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--Contact form
+	<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+</head>
+	<body>
+		<!-- Navbar -->
+		<nav class="nav container void-background">
+			<!-- This "nav-menu" is hidden on mobile -->
+			<!-- Add the modifier "is-active" to display it on mobile -->
+			<div class="nav-left">
+				<a href="https://www.linkedin.com/in/eva-de-sousa-ambrosini-717b23154/" class="nav-item">
+					<span class="icon">
+						<i class="fa fa-linkedin"></i>
+					</span>
+				</a>
+				<a href="https://github.com/eva-dsa" class="nav-item">
+					<span class="icon">
+						<i class="fa fa-github"></i>
+					</span>
+				</a>
+				<!--<a href="https://twitter.com/hassanhelfi" class="nav-item">
+					<span class="icon">
+						<i class="fa fa-twitter"></i>
+					</span>
+				</a>-->				
+			</div>
+
+			<div class="nav-right nav-menu">
+				<a class="nav-item" href="#about">About</a>
+				<a class="nav-item" href="#projects">Projects</a>
+				<a class="nav-item" href="#social">Social</a>
+			</div>
+
+			<!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+			<!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+			<span class="nav-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+		</nav>
+				
+		<!-- About Me -->
+		<section id="about" class="section section-1">
+			<div class="container has-text-centered">
+				<!-- Source: https://flic.kr/p/pAZBNK -->
+				<img class="avatar" src="assets/img/profile.png">
+			</div>
+			<div class="container"></br>
+				<p class="intro">
+					Hi, my name is Eva. <br> 
+					I am curious about technology. <br>
+					This website is a way for me to keep track of what I learn and to put HTML and CSS languages into practice!<br> 
+					It is also a means to share it with people who might be interested. <br> 
+					So feel free to contact me! 
+				</p>
+			</div>
+		</section>
+		
+		<!-- Projects -->
+		<section  id="projects" class="section section-2">
+			<div class="container">
+				<div class="has-text-centered">
+					<h3 class="title is-3">Projects</h3>
+				</div>
+				
+				<div class="columns is-multiline is-desktop">
+					<!-- Project 1 -->
+					<div class="column">
+						<div class="box project-text">
+							<article>
+								<a href="projet1.html">
+									<div>
+										<figure class="image project-figure">
+											<img src="assets/img/project-1.jpg" alt="Image">
+										</figure>
+									</div>
+									<div>			
+										<p>
+										Thesis: virtual reality, a real opportunity for in-company training? 
+										</p>
+									</div>
+								</a>
+							</article>
+						</div>
+					</div>
+					<!-- Project 2 -->
+					<div class="column">
+						<div class="box project-text">
+							<article>
+								<a href="projet2.html">
+									<div>
+										<figure class="image project-figure">
+											<img src="assets/img/project-2.jpg" alt="Image">
+										</figure>
+									</div>
+									<div>			
+										<p>
+											Bless up. Another one. How’s business? Boomin. Don’t ever play yourself. Life is what you make it, so let’s make it.
+										</p>
+									</div>
+								</a>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Social -->
+		<section id="social" class="section section-3">
+			<div class="container_contact">
+				<div class="has-text-centered">					
+					<h3 class="title is-3">Contact</h3>
+						<!--<h4>Contact Form</h4>
+							<div class="container_contact">
+							<form action="/action_page.php">
+								<label for="fname">Name</label>
+								<input type="text" id="name" name="name" placeholder="Your name..">
+								<label for="lname">Last Name</label>
+								<input type="text" id="lname" name="lastname" placeholder="Your last name..">
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" placeholder="Your email..">
+								<label for="subject">Message</label>
+								<textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+								<input type="submit" value="Submit">
+							</form>-->
+							<!--</div>-->
+				</div>
+				<div class="social-container columns">
+					<div class="column is-6 has-text-centered">
+						<a target="_blank" href="https://www.linkedin.com/in/eva-de-sousa-ambrosini-717b23154/"><img class="social_icon" src="assets/img/linkedin.png"></a>
+					</div>
+					<!--<div class="column is-6 has-text-centered">
+						<a target="_blank" href="https://"><img class="" src="assets/img/facebook.png"></a>
+					</div>-->
+				</div>
+			</div>
+		</section>	
+		
+		<!-- Footer -->
+		<section class="section-4 has-text-centered container">
+			<a href="about.html">Eva Ambrosini</a>
+		</section>
+		
+		<!-- Scripts  -->
+		<script src="controller.js"></script>		
+	</body>	
+</html>
