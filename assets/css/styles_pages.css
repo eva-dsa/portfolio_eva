@@ -12,73 +12,50 @@ a:hover {
   color: #00cfff;
 }
 
-section{
-	padding-top: 3rem;
+#vr_summary{
+	padding-top: 6rem;
 	padding-bottom: 3rem;
-}
-
-.section-1 {
-	background: white;
-}
-
-.section-2 {
-	background-color: #e2e2e2;
-}
-
-.section-3 {
-	background-color: white;
+/* 	margin-left: 25%;
+	margin-right: 25%; */
+	text-align: justify;
+	max-width: 675px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .section-4 {
 	background-color: white;
-	padding: 0.2rem;
-}
-
-a.nav-item {
-	color: #7f7f7f;
-}
-
-a.nav-item:hover {
-	color: #00cfff;
-}
-
-.avatar{
-	height:200px;
-	border-radius: 50%;
-}
-
-.intro-description{
-	padding-top: 1rem;
-}
-
-.social-container img{
-	max-width:100%;
-	max-height:175px;
-	margin-bottom:15px;
+	padding : 0.2rem;
 }
 
 .project-figure {
 	margin: 0 auto 1rem auto;
 	max-height: 256px;
 	max-width: 256px;
+	border:1px solid #aaaaaa;
 }
 
 .project-text {
 	text-align: justify;
 }
 
-.box {
-	padding: 2%;
-	height: 98%;
-	background-color: transparent; 
-
-	/*border: 2px solid rgba(7, 59, 79, 0.5);*/
+h1 {
+	color: #525252;
+	text-align: center;
+	margin-bottom: 2rem;
+	font-weight:bolder;
+	font-size: 1.7rem;
 }
 
-.title {
-	color: #525252;
-	text-align: left;
-	margin-bottom: 2rem;
+h2 {
+	font-weight:600;
+	font-size: 1.1rem;
+	margin: 0.8rem;
+}
+
+p {
+	margin-bottom: 1rem;
+	text-indent: 3.5rem;
 }
 
 .intro {
@@ -91,21 +68,33 @@ a.nav-item:hover {
 	background-color: transparent; 
 }
 
+/* Navbar */
 @media screen and (max-width: 768px) {
 	.nav-menu {
-		background-color: white;
+		background-color:transparent;
 	}
-
 	.nav-toggle:hover {
 		background-color: transparent;
 	}
-
 	.nav-toggle span {
 		background-color: white;
 	}
-
 	.nav-toggle span:hover {
 		background-color: #00cfff;
 	}
+}
 
+/*Nav bar sticky*/
+.nav {
+	background-color: rgb(255, 255, 255);
+	position:fixed; /* Set the navbar to fixed position */
+	top: 0; /* Position the navbar at the top of the page */
+	width:100%; /* Full width */
+}
+a.nav-item {
+	color: #7f7f7f;
+}
+
+a.nav-item:hover {
+	color: #00cfff;
 }

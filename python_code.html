@@ -1,0 +1,1047 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Python Scrapping Code</title><style>
+    /* webkit printing magic: print all background colors */
+    html {
+        -webkit-print-color-adjust: exact;
+    }
+    * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    @media only screen {
+        body {
+            margin: 2em auto;
+            max-width: 900px;
+            color: rgb(55, 53, 47);
+        }
+    }
+    
+    body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+    }
+    
+    a,
+    a.visited {
+        color: inherit;
+        text-decoration: underline;
+    }
+    
+    .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+    }
+    
+    h1,
+    h2,
+    h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+       /*  font-weight: 700;
+        margin-top: 0; */ 
+        margin-bottom: 0.75em;
+        color: #7f7f7f;
+	    text-align: left;
+	    margin-bottom: 2rem;
+}
+    }
+    
+    h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+    }
+    
+    .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+    }
+    
+    .callout {
+        border-radius: 3px;
+        padding: 1rem;
+    }
+    
+    figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+    }
+    
+    figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+    }
+    
+    mark {
+        background-color: transparent;
+    }
+    
+    .indented {
+        padding-left: 1.5em;
+    }
+    
+    hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+    }
+    
+    img {
+        max-width: 100%;
+    }
+    
+    @media only print {
+        img {
+            max-height: 100vh;
+            object-fit: contain;
+        }
+    }
+    
+    @page {
+        margin: 1in;
+    }
+    
+    .collection-content {
+        font-size: 0.875rem;
+    }
+    
+    .column-list {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .column {
+        padding: 0 1em;
+    }
+    
+    .column:first-child {
+        padding-left: 0;
+    }
+    
+    .column:last-child {
+        padding-right: 0;
+    }
+    
+    .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+    }
+    
+    .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+    }
+    
+    .table_of_contents-indent-2 {
+        margin-left: 3rem;
+    }
+    
+    .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+    }
+    
+    .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+    }
+    
+    table,
+    th,
+    td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+    }
+    
+    table {
+        border-left: none;
+        border-right: none;
+    }
+    
+    th,
+    td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+    }
+    
+    th {
+        color: rgba(55, 53, 47, 0.6);
+    }
+    
+    ol,
+    ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+    }
+    
+    li > ol:first-child,
+    li > ul:first-child {
+        margin-block-start: 0.6em;
+    }
+    
+    ul > li {
+        list-style: disc;
+    }
+    
+    ul.to-do-list {
+        text-indent: -1.7em;
+    }
+    
+    ul.to-do-list > li {
+        list-style: none;
+    }
+    
+    .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+    }
+    
+    ul.toggle > li {
+        list-style: none;
+    }
+    
+    ul {
+        padding-inline-start: 1.7em;
+    }
+    
+    ul > li {
+        padding-left: 0.1em;
+    }
+    
+    ol {
+        padding-inline-start: 1.6em;
+    }
+    
+    ol > li {
+        padding-left: 0.2em;
+    }
+    
+    .mono ol {
+        padding-inline-start: 2em;
+    }
+    
+    .mono ol > li {
+        text-indent: -0.4em;
+    }
+    
+    .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+    }
+    
+    /* Indent toggle children */
+    .toggle > li > details {
+        padding-left: 1.7em;
+    }
+    
+    .toggle > li > details > summary {
+        margin-left: -1.1em;
+    }
+    
+    .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+    }
+    
+    .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+    }
+    
+    time {
+        opacity: 0.5;
+    }
+    
+    .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+    }
+    
+    img.icon {
+        border-radius: 3px;
+    }
+    
+    .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+    }
+    
+    .user-icon-inner {
+        font-size: 0.8em;
+    }
+    
+    .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+    }
+    
+    .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+    }
+    
+    .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+    }
+    
+    .page-header-icon img {
+        border-radius: 3px;
+    }
+    
+    .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+    }
+    
+    p > .user {
+        opacity: 0.5;
+    }
+    
+    td > .user,
+    td > time {
+        white-space: nowrap;
+    }
+    
+    input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+    }
+    
+    p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    
+    .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+    }
+    
+    .code,
+    code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+    }
+    
+    code {
+        color: #eb5757;
+    }
+    
+    .code {
+        padding: 1.5em 1em;
+    }
+    
+    .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    
+    .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+    }
+    
+    blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+    }
+    
+    .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+    }
+    
+    .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+    }
+    
+    .bookmark-text {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+    }
+    
+    .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+    }
+    
+    .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+    }
+    
+    .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+    .code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+    .serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+    .mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+    .pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+    
+    .pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+    
+    .pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+    
+    .pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+    
+    .highlight-default {
+    }
+    .highlight-gray {
+        color: rgb(155,154,151);
+    }
+    .highlight-brown {
+        color: rgb(100,71,58);
+    }
+    .highlight-orange {
+        color: rgb(217,115,13);
+    }
+    .highlight-yellow {
+        color: rgb(223,171,1);
+    }
+    .highlight-teal {
+        color: rgb(15,123,108);
+    }
+    .highlight-blue {
+        color: rgb(11,110,153);
+    }
+    .highlight-purple {
+        color: rgb(105,64,165);
+    }
+    .highlight-pink {
+        color: rgb(173,26,114);
+    }
+    .highlight-red {
+        color: rgb(224,62,62);
+    }
+    .highlight-gray_background {
+        background: rgb(235,236,237);
+    }
+    .highlight-brown_background {
+        background: rgb(233,229,227);
+    }
+    .highlight-orange_background {
+        background: rgb(250,235,221);
+    }
+    .highlight-yellow_background {
+        background: rgb(251,243,219);
+    }
+    .highlight-teal_background {
+        background: rgb(221,237,234);
+    }
+    .highlight-blue_background {
+        background: rgb(221,235,241);
+    }
+    .highlight-purple_background {
+        background: rgb(234,228,242);
+    }
+    .highlight-pink_background {
+        background: rgb(244,223,235);
+    }
+    .highlight-red_background {
+        background: rgb(251,228,228);
+    }
+    .block-color-default {
+        color: inherit;
+        fill: inherit;
+    }
+    .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+    }
+    .block-color-brown {
+        color: rgb(100,71,58);
+        fill: rgb(100,71,58);
+    }
+    .block-color-orange {
+        color: rgb(217,115,13);
+        fill: rgb(217,115,13);
+    }
+    .block-color-yellow {
+        color: rgb(223,171,1);
+        fill: rgb(223,171,1);
+    }
+    .block-color-teal {
+        color: rgb(15,123,108);
+        fill: rgb(15,123,108);
+    }
+    .block-color-blue {
+        color: rgb(11,110,153);
+        fill: rgb(11,110,153);
+    }
+    .block-color-purple {
+        color: rgb(105,64,165);
+        fill: rgb(105,64,165);
+    }
+    .block-color-pink {
+        color: rgb(173,26,114);
+        fill: rgb(173,26,114);
+    }
+    .block-color-red {
+        color: rgb(224,62,62);
+        fill: rgb(224,62,62);
+    }
+    .block-color-gray_background {
+        background: rgb(235,236,237);
+    }
+    .block-color-brown_background {
+        background: rgb(233,229,227);
+    }
+    .block-color-orange_background {
+        background: rgb(250,235,221);
+    }
+    .block-color-yellow_background {
+        background: rgb(251,243,219);
+    }
+    .block-color-teal_background {
+        background: rgb(221,237,234);
+    }
+    .block-color-blue_background {
+        background: rgb(221,235,241);
+    }
+    .block-color-purple_background {
+        background: rgb(234,228,242);
+    }
+    .block-color-pink_background {
+        background: rgb(244,223,235);
+    }
+    .block-color-red_background {
+        background: rgb(251,228,228);
+    }
+    .select-value-color-default { background-color: rgba(206,205,202,0.5); }
+    .select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+    .select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+    .select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+    .select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+    .select-value-color-green { background-color: rgba(0,135,107,0.2); }
+    .select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+    .select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+    .select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+    .select-value-color-red { background-color: rgba(255,0,26,0.2); }
+    
+    .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+    }
+    
+    .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+    
+    .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+ 
+        
+    </style></head><body><article id="fa2127c3-7501-4e74-aa34-b34b1e2b4a84" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👩🏻‍💻</span></div><h1 class="page-title">Python Scraping Code</h1></header><div class="page-body"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d257d436-08af-413b-a0d8-5caac3886ad9" class="code"><code><span class="token keyword">from</span> bs4 <span class="token keyword">import</span> BeautifulSoup
+    <span class="token keyword">import</span> requests
+    <span class="token keyword">import</span> time
+    <span class="token keyword">import</span> re
+    <span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd</code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d1749c55-20dc-4337-b21b-748059491cc9" class="code"><code><span class="token keyword">def</span> <span class="token function">get_population_number</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      nbr <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-population"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> nbr <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      nbr_pop<span class="token operator">=</span>nbr<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">'subfield-number'</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> nbr_pop <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> nbr_pop<span class="token punctuation">.</span>text
+      
+    
+    <span class="token keyword">def</span> <span class="token function">get_language</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-languages"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      lang<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> lang <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> lang<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_age_structure</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-age-structure"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      ages<span class="token operator">=</span>item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> ages<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>age<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> age <span class="token keyword">in</span> ages<span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_pop_distribution</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-population-distribution"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      pop_distrib<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> pop_distrib <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> pop_distrib<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_pop_growth_rate</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-population-growth-rate"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      pop_growth<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"subfield-number"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> pop_growth <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> pop_growth<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-purchasing-power-parity"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdp<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gdp <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gdp<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_urbanization</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-urbanization"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      urban<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> urban <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> urban<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_major_urban_areas</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-major-urban-areas-population"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      maj_urban_areas<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> maj_urban_areas <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> maj_urban_areas<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_capital</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-capital"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      capital<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> capital <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> capital<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gv_type</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-government-type"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gv_type <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gv_type <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gv_type<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp_official_exchange_rate</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-official-exchange-rate"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdp_official_exchange_rate<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gdp_official_exchange_rate <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gdp_official_exchange_rate<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp_real_growth_rate</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-real-growth-rate"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdp_real_growth_rate<span class="token operator">=</span>item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"subfield-number"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gdp_real_growth_rate <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gdp_real_growth_rate<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp_per_capita_ppp</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-per-capita-ppp"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdp_per_capita_ppp <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gdp_per_capita_ppp <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gdp_per_capita_ppp<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gross_national_saving</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gross-national-saving"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gross_national_saving <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> gross_national_saving <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> gross_national_saving<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp_composition_by_end_use</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-composition-by-end-use"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdps_composition_by_end_use <span class="token operator">=</span> item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> gdps_composition_by_end_use<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>gdp_composition_by_end_use<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> gdp_composition_by_end_use <span class="token keyword">in</span> gdps_composition_by_end_use<span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_gdp_composition_by_sector_of_origin</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-gdp-composition-by-sector-of-origin"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      gdps_composition_by_sector_of_origin <span class="token operator">=</span> item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> gdps_composition_by_sector_of_origin<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>gdp_composition_by_sector_of_origin<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> gdp_composition_by_sector_of_origin <span class="token keyword">in</span> gdps_composition_by_sector_of_origin<span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_labor_force</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-labor-force"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      labor_force <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> labor_force <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> labor_force<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_labor_force_by_occupation</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-labor-force-by-occupation"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      labors_force_by_occupation <span class="token operator">=</span> item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> labors_force_by_occupation<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>labor_force_by_occupation<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> labor_force_by_occupation <span class="token keyword">in</span> labors_force_by_occupation<span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_unemployment_rate</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-unemployment-rate"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      unemployment_rate <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> unemployment_rate <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> unemployment_rate<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_population_below_poverty_line</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-population-below-poverty-line"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      population_below_poverty_line <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> population_below_poverty_line <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> population_below_poverty_line<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_budget</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-budget"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      budgets <span class="token operator">=</span> item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> budgets<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>budget<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> budget <span class="token keyword">in</span> budgets<span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_budget_surplus_or_deficit</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-budget-surplus-or-deficit"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      budget_surplus_or_deficit <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> budget_surplus_or_deficit <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> budget_surplus_or_deficit<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_inflation_rate_consumer_prices</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-inflation-rate-consumer-prices"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      inflation_rate_consumer_prices <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> inflation_rate_consumer_prices <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> inflation_rate_consumer_prices<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_current_account_balance</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-current-account-balance"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      current_account_balance <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> current_account_balance <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> current_account_balance<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_exports</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-exports"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      exports <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> exports <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> exports<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_exports_partners</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-exports-partners"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      exports_partners <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> exports_partners <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> exports_partners<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_imports</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-imports"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      imports <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> imports <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> imports<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_imports_commodities</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-imports-commodities"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      imports_commodities <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> imports_commodities <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> imports_commodities<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_imports_partners</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-imports-partners"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      imports_partners <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> imports_partners <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> imports_partners<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_exchange_rates</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-exchange-rates"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      exchange_rates <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield historic"</span><span class="token punctuation">)</span>
+      info_monnaie <span class="token operator">=</span> item<span class="token punctuation">.</span>find<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield text"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> exchange_rates <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">if</span> info_monnaie <span class="token keyword">is</span> <span class="token boolean">None</span> <span class="token punctuation">:</span> 
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> info_monnaie<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> exchange_rates<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    
+    <span class="token keyword">def</span> <span class="token function">get_internet_users</span><span class="token punctuation">(</span>soup<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      item <span class="token operator">=</span> soup<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span><span class="token string">"field-internet-users"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> item <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      internets_users <span class="token operator">=</span> item<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span>class_<span class="token operator">=</span><span class="token string">"category_data subfield numeric"</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token keyword">not</span> internets_users<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+      <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>internet_users<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> internet_users <span class="token keyword">in</span> internets_users<span class="token punctuation">)</span>
+    
+    
+    <span class="token comment"># def get_mini_maps(soup):</span>
+      <span class="token comment">#URL_main_part = 'https://www.cia.gov/library/publications/the-world-factbook'</span>
+      <span class="token comment">#item = soup.find('div',{'class':'locatorBox'})</span>
+      <span class="token comment">#if item is None:</span>
+        <span class="token comment">#return -1</span>
+      <span class="token comment">#URL_mini_map = URL_main_part + soup.find('img',{'src':re.compile('map.gif')})['src'].replace('..','')</span>
+      <span class="token comment">#mini_map = download_image(URL_mini_map,'./maps')</span>
+      <span class="token comment">#return mini_map</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="44782ea7-b78a-4745-a111-27f60864e0fc" class="code"><code><span class="token comment"># Obtenir la liste des Url à étudier</span>
+    <span class="token comment"># Extraire les éléments différents de chaque URL</span>
+    page <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.cia.gov/library/publications/the-world-factbook/'</span><span class="token punctuation">)</span>
+    soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>page<span class="token punctuation">.</span>content<span class="token punctuation">,</span> <span class="token string">'html.parser'</span><span class="token punctuation">)</span>
+    elems <span class="token operator">=</span> soup<span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token string">"option[data-place-code]"</span><span class="token punctuation">)</span>
+    code <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>elem<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'data-place-code'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> elem<span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> elem <span class="token keyword">in</span> elems<span class="token punctuation">]</span>
+    data <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> <span class="token punctuation">(</span>ccode<span class="token punctuation">,</span> country<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Démarrage étape {0} sur {1}."</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        current_url <span class="token operator">=</span><span class="token string">'https://www.cia.gov/library/publications/the-world-factbook/geos/'</span> <span class="token operator">+</span> ccode <span class="token operator">+</span> <span class="token string">'.html'</span>
+        page <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>current_url<span class="token punctuation">)</span> 
+        soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>page<span class="token punctuation">.</span>content<span class="token punctuation">,</span> <span class="token string">'html.parser'</span><span class="token punctuation">)</span>
+        capital <span class="token operator">=</span> get_capital<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gv_type <span class="token operator">=</span> get_gv_type<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        nbr_pop <span class="token operator">=</span> get_population_number<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        lang <span class="token operator">=</span> get_language<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        ages <span class="token operator">=</span> get_age_structure<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        pop_distrib <span class="token operator">=</span> get_pop_distribution<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        pop_growth <span class="token operator">=</span> get_pop_growth_rate<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        <span class="token comment">#eco_overview = get_economy_overview(soup)</span>
+        gdp <span class="token operator">=</span> get_gdp<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        urban <span class="token operator">=</span> get_urbanization<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        maj_urban_areas <span class="token operator">=</span> get_major_urban_areas<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gdp_official_exchange_rate <span class="token operator">=</span> get_gdp_official_exchange_rate<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gdp_real_growth_rate <span class="token operator">=</span> get_gdp_real_growth_rate<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gdp_per_capita_ppp <span class="token operator">=</span> get_gdp_per_capita_ppp<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gross_national_saving <span class="token operator">=</span> get_gross_national_saving<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gdps_composition_by_end_use <span class="token operator">=</span> get_gdp_composition_by_end_use<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        gdps_composition_by_sector_of_origin <span class="token operator">=</span> get_gdp_composition_by_sector_of_origin<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        labor_force <span class="token operator">=</span> get_labor_force<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        labors_force_by_occupation <span class="token operator">=</span> get_labor_force_by_occupation<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        unemployment_rate <span class="token operator">=</span> get_unemployment_rate<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        population_below_poverty_line <span class="token operator">=</span> get_population_below_poverty_line<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        budgets <span class="token operator">=</span> get_budget<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        budget_surplus_or_deficit <span class="token operator">=</span> get_budget_surplus_or_deficit<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        inflation_rate_consumer <span class="token operator">=</span> get_inflation_rate_consumer_prices<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        current_account_balance <span class="token operator">=</span> get_current_account_balance<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        exports <span class="token operator">=</span> get_exports<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        exports_partners <span class="token operator">=</span> get_exports_partners<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        imports <span class="token operator">=</span> get_imports<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        imports_commodities <span class="token operator">=</span> get_imports_commodities<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        imports_partners <span class="token operator">=</span> get_imports_partners<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        exchange_rates <span class="token operator">=</span> get_exchange_rates<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        internets_users <span class="token operator">=</span> get_internet_users<span class="token punctuation">(</span>soup<span class="token punctuation">)</span>
+        <span class="token comment">#mini_map = get_mini_maps(soup)</span>
+    
+        data<span class="token punctuation">[</span>country<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">'country_code'</span><span class="token punctuation">:</span> ccode<span class="token punctuation">,</span>
+            <span class="token string">'capital'</span><span class="token punctuation">:</span> capital<span class="token punctuation">,</span>
+            <span class="token string">'gv_type'</span><span class="token punctuation">:</span> gv_type<span class="token punctuation">,</span>
+            <span class="token string">'nbr_pop'</span><span class="token punctuation">:</span> nbr_pop<span class="token punctuation">,</span>
+            <span class="token string">'lang'</span><span class="token punctuation">:</span> lang<span class="token punctuation">,</span>
+            <span class="token string">'age_structure'</span><span class="token punctuation">:</span> ages<span class="token punctuation">,</span>
+            <span class="token string">'pop_distribution'</span><span class="token punctuation">:</span> pop_distrib<span class="token punctuation">,</span>
+            <span class="token string">'pop_growth_rate'</span><span class="token punctuation">:</span> pop_growth<span class="token punctuation">,</span>
+            <span class="token string">'urban'</span><span class="token punctuation">:</span> urban<span class="token punctuation">,</span>
+            <span class="token string">'maj_urban_areas'</span><span class="token punctuation">:</span> maj_urban_areas<span class="token punctuation">,</span>
+            <span class="token comment">#'eco_overview': eco_overview,</span>
+            <span class="token string">'GDP'</span><span class="token punctuation">:</span> gdp<span class="token punctuation">,</span>
+            <span class="token string">'gdp_official_exchange_rate'</span><span class="token punctuation">:</span> gdp_official_exchange_rate<span class="token punctuation">,</span>
+            <span class="token string">'gdp_real_growth_rate'</span><span class="token punctuation">:</span> gdp_real_growth_rate<span class="token punctuation">,</span>
+            <span class="token string">'gdp_per_capita_ppp'</span><span class="token punctuation">:</span> gdp_per_capita_ppp<span class="token punctuation">,</span>
+            <span class="token string">'gross_national_saving'</span> <span class="token punctuation">:</span> gross_national_saving<span class="token punctuation">,</span>
+            <span class="token string">'gdp_composition_by_end_use'</span><span class="token punctuation">:</span> gdps_composition_by_end_use<span class="token punctuation">,</span>
+            <span class="token string">'gdp_composition_by_sector_of_origin'</span><span class="token punctuation">:</span> gdps_composition_by_sector_of_origin<span class="token punctuation">,</span>
+            <span class="token string">'labor_force'</span> <span class="token punctuation">:</span> labor_force<span class="token punctuation">,</span>
+            <span class="token string">'labor_force_by_occupation'</span><span class="token punctuation">:</span> labors_force_by_occupation<span class="token punctuation">,</span>
+            <span class="token string">'unemployment_rate'</span><span class="token punctuation">:</span> unemployment_rate<span class="token punctuation">,</span>
+            <span class="token string">'population_below_poverty_line'</span><span class="token punctuation">:</span> population_below_poverty_line<span class="token punctuation">,</span>
+            <span class="token string">'budget'</span> <span class="token punctuation">:</span> budgets<span class="token punctuation">,</span>
+            <span class="token string">'budget_surplus_or_deficit'</span><span class="token punctuation">:</span> budget_surplus_or_deficit<span class="token punctuation">,</span>
+            <span class="token string">'inflation_rate_consumer'</span><span class="token punctuation">:</span> inflation_rate_consumer<span class="token punctuation">,</span>
+            <span class="token string">'current_account_balance'</span><span class="token punctuation">:</span> current_account_balance<span class="token punctuation">,</span>
+            <span class="token string">'exports'</span><span class="token punctuation">:</span> exports<span class="token punctuation">,</span>
+            <span class="token string">'exports_partners'</span> <span class="token punctuation">:</span> exports_partners<span class="token punctuation">,</span>
+            <span class="token string">'imports'</span><span class="token punctuation">:</span> imports<span class="token punctuation">,</span>
+            <span class="token string">'imports_commodities'</span><span class="token punctuation">:</span> imports_commodities<span class="token punctuation">,</span>
+            <span class="token string">'imports_partners'</span><span class="token punctuation">:</span> imports_partners<span class="token punctuation">,</span>
+            <span class="token string">'exchange_rates'</span><span class="token punctuation">:</span> exchange_rates<span class="token punctuation">,</span>
+            <span class="token string">'internet_users'</span><span class="token punctuation">:</span> internets_users<span class="token punctuation">,</span>
+            <span class="token comment">#'mini_map': mini_map</span>
+            
+        <span class="token punctuation">}</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Fin étape {0} sur {1}."</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span></code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="f6b4e682-4b96-49e4-b838-42e3c8b3c937" class="code"><code><span class="token comment">#conversion dictionnaire en data frame</span>
+    <span class="token keyword">def</span> <span class="token function">data_conversion</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        df_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> df_data</code></pre><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="993cf5d6-f463-46f7-be7e-27e1e5f69862" class="code"><code><span class="token comment">#def export_excel(df_data):</span>
+    <span class="token keyword">with</span> pd<span class="token punctuation">.</span>ExcelWriter<span class="token punctuation">(</span><span class="token string">'fiches_pays.xlsx'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> writer<span class="token punctuation">:</span>
+        data_conversion<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span>to_excel<span class="token punctuation">(</span>writer<span class="token punctuation">,</span>sheet_name<span class="token operator">=</span><span class="token string">'fiches_pays'</span><span class="token punctuation">,</span> index <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span></code></pre></div></article></body></html>
+
