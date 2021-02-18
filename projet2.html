@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -29,9 +28,9 @@
 		</div>
 
 		<div class="nav-right nav-menu">
-			<a class="nav-item" href="#about">About</a>
-			<a class="nav-item" href="#projects">Projects</a>
-			<a class="nav-item" href="#social">Social</a>
+			<a class="nav-item" href="index.html#about">About</a>
+			<a class="nav-item" href="index.html#projects">Projects</a>
+			<a class="nav-item" href="index.html#social">Contact</a>
 		</div>
 
 		<!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -43,12 +42,50 @@
 		</span>
 	</nav>
 	<section id="vr_summary">
+		<figure class="image project-figure">
+			<img src="assets/img/project-2.jpg" alt="Image">
+		</figure>
 		<h1>
 			Web scraping with Python
 		</h1>
-	<h2>
-		Thesis: virtual reality, a real opportunity for in-company training?
-	</h2>
-	<a href="python-1.html">Projet 1</a>
-	</body>
+		<div class="container">
+			<button onclick="location.href='python-1.html'" type="button">Click here to read my python scraping code</button>
+		</div>
+		<h2>
+			Definition
+		</h2>
+		<p>
+			Web scraping with Python is the use of an <b>algorithm</b> written with Python <b>to extract and process large amounts
+			of data from the web</b>.
+		</p>
+		<h2>
+			The project
+		</h2>
+		<p>
+			I wrote a web scraping code in Python to obtain an <b>automatically generated excel with KPI wanted about world countries from the World Factbooks</b>. As you can see in the figure below, the output is an excel sheet with all
+			the KPI selected by the user <i>(in blue)</i> about each country in the world <i>(in yellow)</i>. In this form the data
+			<i>(in green)</i> can be easily exploited by people.
+		</p>
+		<figure class="image project-image">
+			<img src="assets/img/Capture_excel.PNG" alt="Image">
+		</figure>
+		<h2>
+			Why this project?
+		</h2>
+		<p>
+			I thought about this project when I was doing an <b>internship as a strategic analyst</b> in a company. I observed
+			that some people needed to create and update data relating to a number of countries in order to enable the
+			relevant people to make strategic decisions, particularly in terms of international development. 
+		</p>
+		<p>
+			The process <b>was time consuming and very repetitive</b>. For each country people had to find, copy and past all information
+			needed in an excel document. It was not efficient to waste time on such repetitive processes for employees
+			who could be working on tasks that require their special skills. 
+		</p>
+		<p>
+			This finding led me to <b>want to learn how to automate such tasks</b>.
+		</p>
+	</section>
+</body>
+
 </html>
